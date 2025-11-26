@@ -1,0 +1,32 @@
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: housing-api
+    environment:
+      - CONFIG_PATH=/app/config.yaml
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./artifacts:/app/artifacts
+      - ./config.yaml:/app/config.yaml:ro
+      - ./data:/app/data
+    depends_on:
+      - mlflow
+
+  mlflow:
+    image: ghcr.io/mlflow/mlflow:v3.5.1
+    container_name: housing-mlflow
+    ports:
+      - "5001:5001"
+    volumes:
+      - ./artifacts/mlruns:/mlruns
+    command: >
+      mlflow server
+      --host 0.0.0.0
+      --port 5001
+      --backend-store-uri file:///mlruns
+      --default-artifact-root /mlruns
+
+

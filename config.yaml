@@ -1,0 +1,18 @@
+mlflow:
+  tracking_uri: "file:artifacts/mlruns"
+  experiment_name: "housing_price_prediction"
+  model_registry_name: "HousingPriceModel"
+
+paths:
+  raw_data: "data/raw/Housing.csv"
+  processed_data: "data/processed/Housing_clean.csv"
+  train_stats: "data/processed/train_stats.csv"
+  artifacts_dir: "artifacts"
+  models_dir: "artifacts/models"
+  best_model_pickle: "artifacts/models/GradientBoosting_optuna_pipeline.pkl"
+
+api:
+  host: "127.0.0.1"
+  port: 8000
+
+
